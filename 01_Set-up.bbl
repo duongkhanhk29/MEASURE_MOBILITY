@@ -1,0 +1,224 @@
+\begin{thebibliography}{27}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Alesina et~al.(2021)Alesina, Hohmann, Michalopoulos and
+  Papaioannou}]{alesina2021intergenerational}
+\bibinfo{author}{Alesina, A.}, \bibinfo{author}{Hohmann, S.},
+  \bibinfo{author}{Michalopoulos, S.}, \bibinfo{author}{Papaioannou, E.},
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Intergenerational mobility in africa}.
+\newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{89},
+  \bibinfo{pages}{1--35}.
+%Type = Article
+\bibitem[{Apouey et~al.(2023)Apouey, Nissanov and Silber}]{apouey2023ordinal}
+\bibinfo{author}{Apouey, B.}, \bibinfo{author}{Nissanov, Z.},
+  \bibinfo{author}{Silber, J.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Ordinal variables and the measurement of upward and
+  downward intergenerational educational mobility in european countries}.
+\newblock \bibinfo{journal}{Review of Income and Wealth} \bibinfo{volume}{69},
+  \bibinfo{pages}{776--800}.
+%Type = Article
+\bibitem[{Asher et~al.(2019)Asher, Novosad and Rafkin}]{asher2019getting}
+\bibinfo{author}{Asher, S.}, \bibinfo{author}{Novosad, P.},
+  \bibinfo{author}{Rafkin, C.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Getting signal from interval data: Theory and
+  applications to mortality and intergenerational mobility}.
+\newblock \bibinfo{journal}{World Bank Working Paper, Washington DC: World
+  Bank} .
+%Type = Book
+\bibitem[{Bartholomew(1967)}]{Bartholomew1967}
+\bibinfo{author}{Bartholomew, D.}, \bibinfo{year}{1967}.
+\newblock \bibinfo{title}{Stochastic Models for Social Processes}.
+\newblock \bibinfo{edition}{First} ed., \bibinfo{publisher}{John Wiley \&
+  Sons}, \bibinfo{address}{London}.
+%Type = Book
+\bibitem[{Bassi et~al.(2012)Bassi, Busso, Urz{\'u}a and
+  Vargas}]{bassi2012disconnected}
+\bibinfo{author}{Bassi, M.}, \bibinfo{author}{Busso, M.},
+  \bibinfo{author}{Urz{\'u}a, S.}, \bibinfo{author}{Vargas, J.},
+  \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Disconnected: Skills, education, and employment in
+  Latin America}.
+\newblock \bibinfo{publisher}{Inter-American Development Bank}.
+%Type = Article
+\bibitem[{Bibby(1975)}]{bibby1975methods}
+\bibinfo{author}{Bibby, J.}, \bibinfo{year}{1975}.
+\newblock \bibinfo{title}{Methods of measuring mobility.}
+\newblock \bibinfo{journal}{Quality \& Quantity} \bibinfo{volume}{9}.
+%Type = Article
+\bibitem[{Blanden(2013)}]{blanden2013cross}
+\bibinfo{author}{Blanden, J.}, \bibinfo{year}{2013}.
+\newblock \bibinfo{title}{Cross-country rankings in intergenerational mobility:
+  a comparison of approaches from economics and sociology}.
+\newblock \bibinfo{journal}{Journal of Economic Surveys} \bibinfo{volume}{27},
+  \bibinfo{pages}{38--73}.
+%Type = Article
+\bibitem[{Chatterjee(2008)}]{chatterjee2008distances}
+\bibinfo{author}{Chatterjee, S.}, \bibinfo{year}{2008}.
+\newblock \bibinfo{title}{Distances between probability measures}.
+\newblock \bibinfo{journal}{PDF lecture notes, UC Berkeley. Archived from the
+  original on July} \bibinfo{volume}{8}, \bibinfo{pages}{2008}.
+%Type = Article
+\bibitem[{Chetty et~al.(2017)Chetty, Grusky, Hell, Hendren, Manduca and
+  Narang}]{chetty2017fading}
+\bibinfo{author}{Chetty, R.}, \bibinfo{author}{Grusky, D.},
+  \bibinfo{author}{Hell, M.}, \bibinfo{author}{Hendren, N.},
+  \bibinfo{author}{Manduca, R.}, \bibinfo{author}{Narang, J.},
+  \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{The fading american dream: Trends in absolute income
+  mobility since 1940}.
+\newblock \bibinfo{journal}{Science} \bibinfo{volume}{356},
+  \bibinfo{pages}{398--406}.
+%Type = Article
+\bibitem[{Chetty et~al.(2014)Chetty, Hendren, Kline and Saez}]{chetty2014land}
+\bibinfo{author}{Chetty, R.}, \bibinfo{author}{Hendren, N.},
+  \bibinfo{author}{Kline, P.}, \bibinfo{author}{Saez, E.},
+  \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Where is the land of opportunity? the geography of
+  intergenerational mobility in the united states}.
+\newblock \bibinfo{journal}{The quarterly journal of economics}
+  \bibinfo{volume}{129}, \bibinfo{pages}{1553--1623}.
+%Type = Article
+\bibitem[{Corak(2020)}]{corak2020canadian}
+\bibinfo{author}{Corak, M.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{The canadian geography of intergenerational income
+  mobility}.
+\newblock \bibinfo{journal}{The Economic Journal} \bibinfo{volume}{130},
+  \bibinfo{pages}{2134--2174}.
+%Type = Article
+\bibitem[{Csisz{\'a}r(1975)}]{csiszar1975divergence}
+\bibinfo{author}{Csisz{\'a}r, I.}, \bibinfo{year}{1975}.
+\newblock \bibinfo{title}{I-divergence geometry of probability distributions
+  and minimization problems}.
+\newblock \bibinfo{journal}{The annals of probability} ,
+  \bibinfo{pages}{146--158}.
+%Type = Article
+\bibitem[{Deutscher and Mazumder(2023)}]{deutscher2023measuring}
+\bibinfo{author}{Deutscher, N.}, \bibinfo{author}{Mazumder, B.},
+  \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Measuring intergenerational income mobility: A
+  synthesis of approaches}.
+\newblock \bibinfo{journal}{Journal of Economic Literature}
+  \bibinfo{volume}{61}, \bibinfo{pages}{988--1036}.
+%Type = Article
+\bibitem[{Fleury and Gilles(2018)}]{fleury2018intergenerational}
+\bibinfo{author}{Fleury, N.}, \bibinfo{author}{Gilles, F.},
+  \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{The intergenerational transmission of education. a
+  meta-regression analysis}.
+\newblock \bibinfo{journal}{Education Economics} \bibinfo{volume}{26},
+  \bibinfo{pages}{557--573}.
+%Type = Article
+\bibitem[{Halliday et~al.(2021)Halliday, Mazumder and
+  Wong}]{halliday2021intergenerational}
+\bibinfo{author}{Halliday, T.}, \bibinfo{author}{Mazumder, B.},
+  \bibinfo{author}{Wong, A.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Intergenerational mobility in self-reported health
+  status in the us}.
+\newblock \bibinfo{journal}{Journal of Public Economics} \bibinfo{volume}{193},
+  \bibinfo{pages}{104307}.
+%Type = Article
+\bibitem[{Holmlund et~al.(2011)Holmlund, Lindahl and Plug}]{holmlund2011causal}
+\bibinfo{author}{Holmlund, H.}, \bibinfo{author}{Lindahl, M.},
+  \bibinfo{author}{Plug, E.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{The causal effect of parents' schooling on children's
+  schooling: A comparison of estimation methods}.
+\newblock \bibinfo{journal}{Journal of economic literature}
+  \bibinfo{volume}{49}, \bibinfo{pages}{615--651}.
+%Type = Article
+\bibitem[{Jeffreys(1946)}]{jeffreys1946invariant}
+\bibinfo{author}{Jeffreys, H.}, \bibinfo{year}{1946}.
+\newblock \bibinfo{title}{An invariant form for the prior probability in
+  estimation problems}.
+\newblock \bibinfo{journal}{Proceedings of the Royal Society of London. Series
+  A. Mathematical and Physical Sciences} \bibinfo{volume}{186},
+  \bibinfo{pages}{453--461}.
+%Type = Article
+\bibitem[{Molina et~al.(2011)Molina, Navarro and
+  Walker}]{molina2011intergenerational}
+\bibinfo{author}{Molina, J.A.}, \bibinfo{author}{Navarro, M.},
+  \bibinfo{author}{Walker, I.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{Intergenerational well-being mobility in europe}.
+\newblock \bibinfo{journal}{Kyklos} \bibinfo{volume}{64},
+  \bibinfo{pages}{253--270}.
+%Type = Article
+\bibitem[{Morris(1996)}]{morris1996asia}
+\bibinfo{author}{Morris, P.}, \bibinfo{year}{1996}.
+\newblock \bibinfo{title}{Asia's four little tigers: A comparison of the role
+  of education in their development}.
+\newblock \bibinfo{journal}{Comparative education} \bibinfo{volume}{32},
+  \bibinfo{pages}{95--110}.
+%Type = Techreport
+\bibitem[{Mueller(2021)}]{mueller2021entropy}
+\bibinfo{author}{Mueller, G.P.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Entropy measures of social mobility: The example of
+  the intergenerational transmission of education}.
+\newblock \bibinfo{type}{Technical Report} \bibinfo{number}{2021-3}. FORS.
+  \bibinfo{address}{Lausanne, Switzerland}.
+%Type = Book
+\bibitem[{Narayan et~al.(2018)Narayan, Van~der Weide, Cojocaru, Lakner,
+  Redaelli, Mahler, Ramasubbaiah and Thewissen}]{narayan2018fair}
+\bibinfo{author}{Narayan, A.}, \bibinfo{author}{Van~der Weide, R.},
+  \bibinfo{author}{Cojocaru, A.}, \bibinfo{author}{Lakner, C.},
+  \bibinfo{author}{Redaelli, S.}, \bibinfo{author}{Mahler, D.G.},
+  \bibinfo{author}{Ramasubbaiah, R.G.N.}, \bibinfo{author}{Thewissen, S.},
+  \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Fair Progress?: Economic Mobility Across Generations
+  Around the World}.
+\newblock Equity and Development, \bibinfo{publisher}{World Bank},
+  \bibinfo{address}{Washington, DC}.
+%Type = Article
+\bibitem[{Prais(1955)}]{prais1955measuring}
+\bibinfo{author}{Prais, S.J.}, \bibinfo{year}{1955}.
+\newblock \bibinfo{title}{Measuring social mobility}.
+\newblock \bibinfo{journal}{Journal of the Royal Statistical Society. Series A
+  (General)} \bibinfo{volume}{118}, \bibinfo{pages}{56--66}.
+%Type = Book
+\bibitem[{Rawls(1971)}]{Rawls1971}
+\bibinfo{author}{Rawls, J.}, \bibinfo{year}{1971}.
+\newblock \bibinfo{title}{A Theory of Justice}.
+\newblock \bibinfo{publisher}{Harvard University Press},
+  \bibinfo{address}{Harvard, MA}.
+%Type = Article
+\bibitem[{Ray and Genicot(2023)}]{ray2023measuring}
+\bibinfo{author}{Ray, D.}, \bibinfo{author}{Genicot, G.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Measuring upward mobility}.
+\newblock \bibinfo{journal}{American Economic Review} \bibinfo{volume}{113},
+  \bibinfo{pages}{3044--3089}.
+%Type = Incollection
+\bibitem[{Roemer and Trannoy(2015)}]{roemer2015equality}
+\bibinfo{author}{Roemer, J.E.}, \bibinfo{author}{Trannoy, A.},
+  \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Equality of opportunity}, in:
+  \bibinfo{booktitle}{Handbook of income distribution}.
+  \bibinfo{publisher}{Elsevier}. volume~\bibinfo{volume}{2}, pp.
+  \bibinfo{pages}{217--300}.
+%Type = Article
+\bibitem[{Sen(2000)}]{sen2000development}
+\bibinfo{author}{Sen, A.}, \bibinfo{year}{2000}.
+\newblock \bibinfo{title}{Development as freedom}.
+\newblock \bibinfo{journal}{Development in Practice-Oxford-}
+  \bibinfo{volume}{10}, \bibinfo{pages}{258--258}.
+%Type = Article
+\bibitem[{Van~der Weide et~al.(2024)Van~der Weide, Lakner, Mahler, Narayan and
+  Gupta}]{van2024intergenerational}
+\bibinfo{author}{Van~der Weide, R.}, \bibinfo{author}{Lakner, C.},
+  \bibinfo{author}{Mahler, D.G.}, \bibinfo{author}{Narayan, A.},
+  \bibinfo{author}{Gupta, R.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Intergenerational mobility around the world: A new
+  database}.
+\newblock \bibinfo{journal}{Journal of Development Economics}
+  \bibinfo{volume}{166}, \bibinfo{pages}{103167}.
+
+\end{thebibliography}

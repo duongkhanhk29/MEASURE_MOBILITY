@@ -273,6 +273,6 @@ map <- ggplot(world_data) +
 # Export
 
 ```{r}
-ggsave(file="figs/abs_pro2.svg", plot=abs_pro, width=12, height=7)
-ggsave(file="figs/rel_pro2.svg", plot=rel_pro, width=12, height=7)
+ggsave(file="figs/abs_pro2.pdf", plot=abs_pro, width=12, height=7)
+ggsave(file="figs/rel_pro2.pdf", plot=rel_pro, width=12, height=7)
 ```

@@ -273,20 +273,20 @@ map <- ggplot(world_data) +
 # Export
 
 ```{r}
-ggsave(file="figs/abs_pro.svg", plot=abs_pro, width=12, height=7)
-ggsave(file="figs/abs_rel.svg", plot=abs_rel, width=12, height=7)
-ggsave(file="figs/rel_pro.svg", plot=rel_pro, width=12, height=7)
+ggsave(file="figs/abs_pro.pdf", plot=abs_pro, width=12, height=7)
+ggsave(file="figs/abs_rel.pdf", plot=abs_rel, width=12, height=7)
+ggsave(file="figs/rel_pro.pdf", plot=rel_pro, width=12, height=7)
 
-ggsave(file="figs/VNM_USA.svg", plot=VNM_USA, width=8, height=8)
+ggsave(file="figs/VNM_USA.pdf", plot=VNM_USA, width=8, height=8)
 
-ggsave(file="figs/compare1.svg", plot=compare1, width=8, height=4)
-ggsave(file="figs/compare2.svg", plot=compare2, width=8, height=4)
-ggsave(file="figs/compare3.svg", plot=compare3, width=8, height=4)
-ggsave(file="figs/compare4.svg", plot=compare4, width=8, height=4)
+ggsave(file="figs/compare1.pdf", plot=compare1, width=8, height=4)
+ggsave(file="figs/compare2.pdf", plot=compare2, width=8, height=4)
+ggsave(file="figs/compare3.pdf", plot=compare3, width=8, height=4)
+ggsave(file="figs/compare4.pdf", plot=compare4, width=8, height=4)
 
-ggsave(file="figs/rank.svg", plot=rank, width=18, height=12)
+ggsave(file="figs/rank.pdf", plot=rank, width=18, height=12)
 
-ggsave(file="figs/map.svg", plot=map, width=12, height=5)
+ggsave(file="figs/map.pdf", plot=map, width=12, height=5)
 
 write.csv(filtered_df, "tables/output.csv", row.names = FALSE)
 ```
