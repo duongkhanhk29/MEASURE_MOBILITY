@@ -1,0 +1,52 @@
+% \usepackage{color}
+% \usepackage{tabularray}
+\definecolor{GoldenFizz}{rgb}{0.984,0.984,0.274}
+\definecolor{SpringGreen}{rgb}{0.054,0.984,0.58}
+\definecolor{Froly}{rgb}{0.952,0.447,0.447}
+\begin{table}[H]
+\centering
+\caption{The expected matrix}
+\label{tab:matrix}
+\begin{tblr}{
+  cells = {c},
+  cell{2}{2} = {GoldenFizz},
+  cell{2}{3} = {SpringGreen},
+  cell{2}{4} = {SpringGreen},
+  cell{2}{5} = {SpringGreen},
+  cell{2}{6} = {SpringGreen},
+  cell{3}{2} = {Froly},
+  cell{3}{3} = {GoldenFizz},
+  cell{3}{4} = {SpringGreen},
+  cell{3}{5} = {SpringGreen},
+  cell{3}{6} = {SpringGreen},
+  cell{4}{2} = {Froly},
+  cell{4}{3} = {Froly},
+  cell{4}{4} = {GoldenFizz},
+  cell{4}{5} = {SpringGreen},
+  cell{4}{6} = {SpringGreen},
+  cell{5}{2} = {Froly},
+  cell{5}{3} = {Froly},
+  cell{5}{4} = {Froly},
+  cell{5}{5} = {GoldenFizz},
+  cell{5}{6} = {SpringGreen},
+  cell{6}{2} = {Froly},
+  cell{6}{3} = {Froly},
+  cell{6}{4} = {Froly},
+  cell{6}{5} = {Froly},
+  cell{6}{6} = {GoldenFizz},
+  cell{7}{1} = {c=6}{},
+  hlines,
+  vlines,
+}
+            & \textbf{C1}                         & \textbf{C2}                         & \textbf{C3}                         & \textbf{C4}                          & \textbf{C5}                               & \textbf{Total}        \\
+\textbf{P1} & $\displaystyle \omega \times P_{1}$ & $\displaystyle a$                   & $\displaystyle a\times b$           & $\displaystyle a\times b\times c$    & $\displaystyle a\times b\times c\times d$ & $\displaystyle P_{1}$ \\
+\textbf{P2} & 0                                   & $\displaystyle \omega \times P_{2}$ & $\displaystyle b$                   & $\displaystyle b\times c$            & $\displaystyle b\times c\times d$         & $\displaystyle P_{2}$ \\
+\textbf{P3} & 0                                   & 0                                   & $\displaystyle \omega \times P_{3}$ & $\displaystyle c$                    & $\displaystyle c\times d$                 & $\displaystyle P_{3}$ \\
+\textbf{P4} & 0                                   & 0                                   & 0                                   & $\displaystyle \omega \times P_{4} $ & $\displaystyle d$                         & $\displaystyle P_{4}$ \\
+\textbf{P5} & 0                                   & 0                                   & 0                                   & 0                                    & $\displaystyle P_{5}$                     & $\displaystyle P_{5}$ \\
+            &                                     &                                     &                                     &                                      &                                           & \textbf{100\%}        
+\end{tblr}
+\vspace{0.2cm}
+\captionsetup{font=footnotesize}
+    \caption*{\textbf{Notes:} The upward area is colored green, the persistent area is colored yellow, and the downward area is colored red.}
+\end{table}

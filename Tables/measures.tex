@@ -1,0 +1,50 @@
+\begin{table}[!ht]
+    \centering
+    \caption{Common measures of intergenerational mobility}
+    \renewcommand{\arraystretch}{1.5} 
+    \begin{tabular}{|m{0.12\textwidth}|m{0.49\textwidth}|m{0.30\textwidth}|}
+    \hline
+    \centering \textbf{Metrics} & \centering \textbf{Explain} & \centering \textbf{Formula} \tabularnewline
+    \hline
+    \centering CAT & \raggedright Pr child surpasses parent’s educational category (conditional on parent not having tertiary) & \centering
+    \begin{equation*}
+    \operatorname{Pr}[ R_{c}  >R_{p} |R_{p} < 5]
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \centering MIX & \raggedright Share of respondents with strictly higher educational category than parents if parents do not have tertiary, or with tertiary education if either parent has tertiary. & \centering
+    \begin{equation*}
+    \operatorname{Pr}[( R_{c}  >R_{p}) \cap ( R_{c} =R_{p} =5)]
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \centering 1-COR & \raggedright 1 minus the correlation coefficient between respondents' and parents' years of schooling. & \centering
+    \begin{equation*}
+    1-\frac{\operatorname{Cov}( Y_{c} ,Y_{P})}{\sqrt{\operatorname{Var}( Y_{c}) \times \operatorname{Var}( Y_{P})}}
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \centering 1-BETA & \raggedright 1 minus the coefficient from regressing respondents' years of schooling on parents' years of schooling. & \centering
+    \begin{equation*}
+    1-\frac{\operatorname{Cov}( Y_{c} ,Y_{P})}{\operatorname{Var}( Y_{P})}
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \centering MU050 & \raggedright Expected child educational rank from a person born in bottom half & \centering
+    \begin{equation*}
+    \operatorname{\mathbb{E}}[ R_{c} |R_{p} < Q_{2}]
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \centering BHQ4 & \raggedright Pr child from bottom half reaches top quartile & \centering
+    \begin{equation*}
+    \operatorname{Pr}[ R_{c}  >Q_{3} |R_{p} < Q_{2}]
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \centering AHMP & \raggedright Share of respondents with a completed primary education conditional on neither parent having completed primary education. & \centering
+    \begin{equation*}
+    \operatorname{Pr}[ R_{c} \geq 2|R_{p} < 2]
+    \vspace{-1em}\end{equation*} \tabularnewline
+    \hline
+    \end{tabular}
+    \vspace{0.2cm}
+    \label{tab:measures}
+    \captionsetup{font=footnotesize}
+    \caption*{\textbf{Notes:} \( c \) denote the child and \( p \) denote the parent. The variable \( Y \) represents years of schooling, while education levels are categorized as \( R = \{1,2,3,4,5\} \), corresponding to (1) less than primary, (2) primary, (3) lower secondary, (4) upper secondary, and (5) tertiary education. The second and third quartiles of the education distribution are denoted as \( Q_2 \) and \( Q_3 \), respectively.\\
+    Source: adapted from \citet{van2024intergenerational}}
+\end{table}

@@ -1,0 +1,79 @@
+\documentclass[3p,authoryear,11pt]{elsarticle}
+
+\makeatletter
+\def\ps@pprintTitle{%
+ \let\@oddhead\@empty
+ \let\@evenhead\@empty
+ \let\@oddfoot\@empty
+ \let\@evenfoot\@empty}
+\makeatother
+
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{amssymb}
+\usepackage{tabularray}
+\UseTblrLibrary{diagbox}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage{threeparttablex}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{tabularray}
+\usepackage{color}
+\usepackage{url}
+\urlstyle{same}
+
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{A Novel Measure of Social Mobility: Application to a Global Dataset\tnoteref{t1}}
+
+\tnotetext[t1]{\input{04_declaration}}
+
+\author[1]{Khanh Duong\corref{cor1}}
+\author[1]{Wim Groot}
+\author[1,2]{Kristof De Witte}
+
+\cortext[cor1]{Correspondence should be addressed to Khanh Duong at duong@merit.unu.edu.}
+
+\affiliation[1]
+{organization={UNU-MERIT},
+addressline={Boschstraat 24},
+postcode={6211 AX},
+city={Maastricht},
+country={The Netherlands}}
+
+\affiliation[2]
+{organization={Faculty of Economics and Business KU Leuven},
+addressline={Naamsestraat 69},
+postcode={3000},
+city={Leuven},
+country={Belgium}}
+
+    \begin{abstract}
+
+    \noindent  Although social mobility is often associated with equality of opportunity, its precise meaning remains ambiguous. Consequently, the measurement of social mobility is problematic as well. This paper examines two key challenges in measuring social mobility: the directionality problem and the difficulty problem. The directionality problem arises when social fluidity—defined as the independence of socioeconomic outcomes from parental status—does not necessarily reflect true progress, particularly in cases of downward mobility. The difficulty problem occurs when the effort required for mobility is not properly accounted for, as it varies significantly across different social contexts. Relative mobility is often affected by the directionality problem, while absolute mobility is subject to the difficulty problem. Local measures focusing on disadvantaged groups may offer valuable insights but fail to capture the complete national picture. They are also less effective in developed countries, where most of the population is already well-educated, making global comparisons more challenging. To address these problems, this paper introduces a new index called the ``Progress Gap,'' which quantifies the gap—interpreted as the national effort—between the actual transition matrix and a predefined target tailored to each country's context. By design, this index is independent of country-specific factors, enabling more consistent comparisons. It offers a more rigorous and meaningful assessment of social mobility in education on a global scale, contributing to a deeper understanding of inclusive growth.
+    
+    \end{abstract}
+
+    \begin{keyword}
+    Social mobility \sep Equality of opportunity \sep Educational progress \sep Measurement issues
+    \JEL I24 \sep D63 \sep O15 
+    \end{keyword}
+
+\end{frontmatter}
+
+\input{02_main_text}
+
+\end{document}

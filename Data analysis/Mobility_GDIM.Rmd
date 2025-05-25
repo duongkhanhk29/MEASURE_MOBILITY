@@ -1,0 +1,592 @@
+---
+title: "A New Measurement of Educational Social Mobility: Application to a Global Dataset"
+author: "Khanh Duong"
+date: "`r Sys.Date()`"
+output: slidy_presentation
+widescreen: true
+duration: 45
+incremental: true
+self-contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+
+# Load necessary libraries
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(ggrepel)
+library(kableExtra)
+```
+
+```{r cleaning}
+
+Dt <- read.csv("GDIM_2023_03.csv", stringsAsFactors=TRUE)
+
+Dt$year <- as.factor(Dt$year)
+Dt$cohort <- as.factor(Dt$cohort)
+
+Dt <- Dt %>% 
+  filter(parent == "max", child == "all")
+
+Q_df <- data.frame(
+  C1P1 = Dt$tm11 * Dt$P1, C2P1 = Dt$tm12 * Dt$P1, C3P1 = Dt$tm13 * Dt$P1, C4P1 = Dt$tm14 * Dt$P1, C5P1 = Dt$tm15 * Dt$P1,
+  C1P2 = Dt$tm21 * Dt$P2, C2P2 = Dt$tm22 * Dt$P2, C3P2 = Dt$tm23 * Dt$P2, C4P2 = Dt$tm24 * Dt$P2, C5P2 = Dt$tm25 * Dt$P2,
+  C1P3 = Dt$tm31 * Dt$P3, C2P3 = Dt$tm32 * Dt$P3, C3P3 = Dt$tm33 * Dt$P3, C4P3 = Dt$tm34 * Dt$P3, C5P3 = Dt$tm35 * Dt$P3,
+  C1P4 = Dt$tm41 * Dt$P4, C2P4 = Dt$tm42 * Dt$P4, C3P4 = Dt$tm43 * Dt$P4, C4P4 = Dt$tm44 * Dt$P4, C5P4 = Dt$tm45 * Dt$P4,
+  C1P5 = Dt$tm51 * Dt$P5, C2P5 = Dt$tm52 * Dt$P5, C3P5 = Dt$tm53 * Dt$P5, C4P5 = Dt$tm54 * Dt$P5, C5P5 = Dt$tm55 * Dt$P5
+)
+
+mobility <- data.frame(
+  a = Dt$P1 / (1 + Dt$P2),
+  b = Dt$P2 / (1 + Dt$P3),
+  c = Dt$P3 / (1 + Dt$P4),
+  d = Dt$P4
+)
+
+P_df <- Q_df * 0
+
+P_df$C5P5 <-Q_df$C5P5
+
+P_df$C2P1 <-mobility$a
+P_df$C3P1 <-mobility$a*mobility$b
+P_df$C4P1 <-mobility$a*mobility$b*mobility$c
+P_df$C5P1 <-mobility$a*mobility$b*mobility$c*mobility$d
+
+
+P_df$C3P2 <-mobility$b
+P_df$C4P2 <-mobility$b*mobility$c
+P_df$C5P2 <-mobility$b*mobility$c*mobility$d
+
+P_df$C4P3 <-mobility$c
+P_df$C5P3 <-mobility$c*mobility$d
+
+
+P_df$C5P4 <-mobility$d
+
+upward <- c("C2P1", "C3P1", "C3P2", "C4P1", "C4P2", "C4P3", "C5P1", "C5P2", "C5P3", "C5P4")
+persistence <- c("C1P1","C2P2","C3P3","C4P4","C5P5")
+
+```
+
+```{r ideal}
+calculate_UF_variance <- function(Q_df, P_df, N) {
+  # Initialize an empty data frame to store results
+  results <- data.frame(UF = numeric(nrow(Q_df)), 
+                        UF_error = numeric(nrow(Q_df)))
+
+  # Loop through each row of Q_df and P_df
+  for (i in 1:nrow(Q_df)) {
+    Q <- as.numeric(Q_df[i, ])  
+    P <- as.numeric(P_df[i, ])  
+    N_val <- N[i]  
+  
+    Q_normalized <- Q / sum(Q)  
+    P_normalized <- P / sum(P)  
+    
+    UF <- sqrt(sum((sqrt(P_normalized) - sqrt(Q_normalized))^2)/2)  
+    UF_error <- UF*sqrt(2/N_val) 
+  
+    results$UF[i] <- UF
+    results$UF_error[i] <- UF_error
+  }
+  
+  # Return the results data frame
+  return(results)
+}
+
+
+
+```
+
+```{r output}
+
+N <- as.numeric(Dt$obs)
+
+UF_results_df <- calculate_UF_variance(Q_df, P_df, N)
+
+filtered_df <-cbind(Dt[, c("code", "country", "region_noHICgroup", "incgroup4", "fragile", "cohort", "parent", "child", "obs", "BETA","BETAstd" )],UF_results_df, Q_df)
+
+
+filtered_df$upward <- rowSums(filtered_df[upward])
+
+filtered_df$gap <- (rowSums(P_df[upward] - Q_df[upward]) - rowSums(P_df[!(names(P_df) %in% upward)] - Q_df[!(names(Q_df) %in% upward)]))*0.5
+
+```
+
+```{r heatmap}
+library(ggplot2)
+library(reshape2)
+library(RColorBrewer)
+library(gridExtra)
+
+# Generalized heatmap plotting function with reordered axes
+plot_heatmap <- function(df, index, country, title_suffix) {
+  data_matrix <- t(matrix(as.numeric(df[index, ]), 5, 5))  # Transpose 5x5 matrix
+  colnames(data_matrix) <- paste0("C", 1:5)
+  rownames(data_matrix) <- paste0("P", 1:5)
+
+  heatmap_data <- melt(data_matrix)
+  names(heatmap_data) <- c("Row", "Column", "Value")
+
+  ggplot(heatmap_data, aes(Column, Row, fill = Value)) +
+    geom_tile(color = "black", size = 0.5) +
+    geom_text(aes(label = round(Value * 100, 2)), color = "black", size = 3) +
+    scale_fill_gradientn(colors = colorRampPalette(c("whitesmoke", "cyan", "lightgreen", "green", "yellow", "pink", "salmon"))(100)) +
+    scale_y_discrete(limits = rev(paste0("P", 1:5))) +  # Reverse the order of rows
+    theme_minimal() +
+    theme(
+      axis.text = element_text(size = 10), 
+      axis.title.x = element_blank(),  # Remove x-axis title
+      axis.title.y = element_blank(),  # Remove y-axis title
+      panel.grid = element_blank(), 
+      legend.position = "none"
+    ) +
+    labs(title = paste(country, title_suffix))  # Add country name to title
+}
+
+# Main heatmap function
+heatmap <- function(code) {
+  index <- which(filtered_df$code == code)
+  country <- filtered_df[index, "country"]
+  
+  # Generate plots for Q and P
+  QQ <- plot_heatmap(Q_df, index, country, "(actual)")
+  PP <- plot_heatmap(P_df, index, country, "(ideal)")
+  
+  grid.arrange(QQ, PP, ncol = 2)  # Arrange plots vertically
+}
+
+compare <- function(code1, code2) {
+  index1 <- which(filtered_df$code == code1)
+  country1 <- filtered_df[index1, "country"]
+  relative1 <- filtered_df[index1, "BETA"]
+  absolute1 <- filtered_df[index1, "upward"]
+  QQ1 <- plot_heatmap(Q_df, index1, country1, "") + 
+    ggtitle(country1, subtitle = paste0("Absolute = ", round(absolute1, 2), "; Relative = ", round(relative1, 2)))
+  
+  index2 <- which(filtered_df$code == code2)
+  country2 <- filtered_df[index2, "country"]
+  relative2 <- filtered_df[index2, "BETA"]
+  absolute2 <- filtered_df[index2, "upward"]
+  QQ2 <- plot_heatmap(Q_df, index2, country2, "") + 
+    ggtitle(country2, subtitle = paste0("Absolute = ", round(absolute2, 2), "; Relative = ", round(relative2, 2)))
+  
+  grid.arrange(QQ1, QQ2, ncol = 2)
+}
+
+
+```
+
+```{r global_map, eval=FALSE, fig.height=5, fig.width=12, include=FALSE}
+
+library(rnaturalearth)
+library(rnaturalearthdata)
+world_map <- ne_download(scale = 110, type = "countries", category = "cultural")
+world_data <- left_join(world_map, filtered_df, by = c("ADM0_A3" = "code"))
+ggplot(world_data) +
+  geom_sf(aes(fill = gap)) +
+  scale_fill_gradientn(
+    colors = c("green", "cyan", "salmon"),  # Define three colors for the gradient
+    name = "Progress Gap"
+  ) +
+  theme_void()
+
+```
+
+
+
+# New database, New report
+
+
+-   **Intergenerational economic mobility** is crucial for human progress.
+
+<!-- -->
+
+-   Parents aspire for their children to achieve a **higher living standard**.
+
+<!-- -->
+
+-   **Public policy** plays a key role in enabling upward mobility.
+
+<!-- -->
+
+-   **Barriers to mobility** remain significant, especially in developing countries.
+
+<!-- -->
+
+-   Moving up the **economic ladder** is often harder in poorer nations than in wealthier ones.
+
+## Is this a fair progress?
+
+-   **Economic opportunities** are often determined by **factors beyond individual control**, such as parental wealth and education.
+
+<!-- -->
+
+-   **IGM is unequal across societies**, with disadvantaged individuals facing limited chances for upward mobility.
+
+<!-- -->
+
+-   This **violates equality of opportunity**, where success should depend on **effort and talent**, not inherited advantages.
+
+# The problem of measurement?
+
+**Absolute mobility** is measured by the proportion of individuals who attain a higher level of education than the maximum educational attainment of their parents.
+
+-\> Absolute: Higher - better
+
+**Relative immobility (Intergenerational persistence)** is quantified by the coefficient from a regression that predicts children’s years of schooling based on the years of schooling of their parents.
+
+-\> Relative: Lower - better
+
+## Does Maldives make more progress of education than Canada?
+
+**Is it true to say C5P5 has no progress?**
+
+```{r fig.height=4}
+compare("CAN","MDV")
+```
+
+## Does South Sudan make the same progress of education as Taiwan?
+
+**They are have the quite similar value of relative immobility.**
+
+```{r fig.height=4}
+compare("SSD","TWN")
+```
+
+**The gap:**
+
+-   **Relative intergenerational mobility (IGM)**, derived from tegressing individuals' education on their parents' education, **does not differentiate between upward and downward mobility**.
+
+-   **Absolute mobility** measures the proportion of individuals with higher educational attainment than their parents, but it doesn't capture the **relative position** within the same generation.
+
+    For example, individuals born to parents with low education might **surpass their parents' education** but still fail to reach the **top tiers of educational achievement** in their generation.
+
+# What does the ideal matrix look like?
+
+We begins with the original distribution in the parent generation, where the probabilities are as follows: $P_1$ for ISCED 0 $P_2$ for ISCED 1, $P_3$ for ISCED 2 $P_4$ for ISCED 3 and $P_5$ for ISCED 5-8.
+
+-   $a$ is the probability that an individual, whose parent has attained ISCED 0, will achieve ISCED 1.
+
+-   $b$ is the probability that an individual, whose parent has attained ISCED 1, will achieve ISCED 2.
+
+-   $c$ is the probability that an individual, whose parent has attained ISCED 2, will achieve ISCED 3.
+
+-   $d$ is the probability that an individual, whose parent has attained ISCED 3, will achieve ISCED 4.
+
+![](images/clipboard-177462590.png){width="40%"}
+
+$$
+\begin{array}{l}
+\begin{cases}
+a + a \times b + a \times b \times c + a \times b \times c \times d = P_1 < 1 \\
+b + b \times c + b \times c \times d = P_2 < 1 \\
+c + c \times d = P_3 < 1 \\
+d = P_4 < 1
+\end{cases} \\
+\Rightarrow
+\begin{cases}
+a = \frac{P_1}{1 + P_2} < 1 \\
+b = \frac{P_2}{1 + P_3} < 1 \\
+c = \frac{P_3}{1 + P_4} < 1 \\
+d = P_4 < 1
+\end{cases}
+\end{array}
+$$
+
+**Total variation distance** in Information theory:
+
+$$
+D_{\text{TV}} = \frac{1}{2} \sum_{x} |P(x) - Q(x)|
+$$
+
+where $P(x)$ is the ideal matrix and $Q(x)$ is the actual matrix.
+
+**-\> The progress gap** is defined based on the Total Variation distance:
+
+$$
+D_{\text{PG}} = \frac{1}{2} \sum_{x \in U} P(x) - Q(x) - \frac{1}{2} \sum_{x \notin U} P(x) - Q(x)
+$$
+
+where $U$ is the set of upward cells (including $C_{5}P_{5}$), i.e.,
+
+$$
+U = \{(c, p) \mid 1 \leq c < p \leq 5 \} \cup \{(5, 5)\}
+$$
+
+Here, $c$ represents the child education level and $p$ represents the maximum parent education level.
+
+```{r fig.height=4}
+heatmap("USA")
+heatmap("VNM")
+
+```
+
+# Ranking country in terms of Progress Gap
+
+```{r ranking, fig.height=20, fig.width=8}
+filtered_df$country <- factor(filtered_df$country, levels = filtered_df$country[order(filtered_df$gap, decreasing = FALSE)])
+
+
+ggplot(filtered_df, aes(x = country)) + 
+  geom_col(aes(y = upward, fill = region_noHICgroup), position = "dodge", alpha = 0.7, show.legend = TRUE) +
+  geom_point(aes(y = gap, color = "Progress Gap"), size = 3) +
+  geom_point(aes(y = BETA, color = "Relative Immobility"), size = 3) +
+  geom_errorbar(aes(ymin = BETA - BETAstd, ymax = BETA + BETAstd, color = "Relative Immobility"), width = 0.2) +
+  scale_fill_discrete(name = "Absolute Mobility by Regions") + 
+  scale_color_manual(name = "Measurements", 
+                     values = c("Progress Gap" = "blue", 
+                                "Relative Immobility" = "red", 
+                                "Relative Immobility (Error Bars)" = "darkred")) +
+  labs(y = "", x = "", title = "", fill = "Regions") +
+  theme_bw() + ylim(0,1)+
+  coord_flip()
+
+```
+
+# Compare to Absolute Mobility
+
+```{r absolute, fig.height=7, fig.width=15}
+lm_fit <- lm(gap ~ upward, data = filtered_df)
+filtered_df$residuals <- residuals(lm_fit)
+
+outliers_df <- bind_rows(
+  filtered_df %>% filter(residuals > 0) %>% top_n(5, residuals),
+  filtered_df %>% filter(residuals < 0) %>% top_n(-5, residuals),
+  filtered_df %>% top_n(5, gap),
+  filtered_df %>% top_n(-5, gap)
+) %>% distinct(country, .keep_all = TRUE)
+
+ggplot(filtered_df, aes(x = upward, y = gap)) +
+  geom_point(aes(color = region_noHICgroup), size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linetype = "dashed") +
+  geom_text_repel(data = outliers_df, aes(label = country), vjust = -1, size = 4, color = "black") +
+  xlim(0, 1) + ylim(0, 1) +
+  labs(x = "Absolute Mobility", y = "Progress Gap", color = "Regions") +
+  theme_bw()
+
+```
+
+## Same Absolute Mobility
+
+```{r fig.height=4}
+compare("RUS","BDI")
+```
+
+## Same Progress Gap
+
+```{r fig.height=4}
+compare("CAN","MYS")
+```
+
+# Compare to Relative Immobility
+
+```{r relative, fig.height=7, fig.width=15}
+
+lm_fit <- lm(gap ~ BETA, data = filtered_df)
+filtered_df$residuals <- residuals(lm_fit)
+
+outliers_df <- bind_rows(
+  filtered_df %>% filter(residuals > 0) %>% top_n(5, residuals),
+  filtered_df %>% filter(residuals < 0) %>% top_n(-5, residuals),
+  filtered_df %>% top_n(5, gap),
+  filtered_df %>% top_n(-5, gap)
+) %>% distinct(country, .keep_all = TRUE)
+
+ggplot(filtered_df, aes(x = BETA, y = gap)) +
+  geom_point(aes(color = region_noHICgroup), size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linetype = "dashed") +
+  geom_text_repel(data = outliers_df, aes(label = country), vjust = -1, size = 4, color = "black") +
+  xlim(0, 1) + ylim(0, 1) +
+  labs(x = "Relative Immobility", y = "Progress Gap", color = "Regions") +
+  theme_bw()
+
+```
+
+## Same Relative Immobility
+
+```{r fig.height=4}
+compare("SSD","TWN")
+```
+
+## Same Progess Gap
+
+```{r fig.height=4}
+compare("ROU","SVN")
+```
+
+# Regression
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+Reg_df <- Q_df[,c(upward)]
+
+
+Reg_df$code <-Dt$code
+Reg_df$cohort <-Dt$cohort
+
+
+Reg_long <- Reg_df %>%
+  pivot_longer(
+    cols = c(upward), 
+    names_to = "position",          
+    values_to = "share"             
+  )
+
+
+
+Reg_long <- Reg_long %>%
+  mutate(
+    C = as.numeric(substr(position, 2, 2)),
+    P = as.numeric(substr(position, 4, 4)),
+    diff_21 = as.integer(P <= 1 & C >= 2),
+    diff_32 = as.integer(P <= 2 & C >= 3),
+    diff_43 = as.integer(P <= 3 & C >= 4),
+    diff_54 = as.integer(P <= 4 & C >= 5),
+    risk = log(1 - share)
+  ) %>%
+  mutate(
+    C = factor(C),
+    P = factor(P)
+  )
+
+library(fastDummies)
+Reg_long <- dummy_cols(Reg_long, select_columns =c("P"))
+Reg_long$P_5 <- NULL
+
+final_matrix <- Reg_long[1:15,] %>%
+  select(-code, -cohort, -share, -risk)
+
+Reg_long <- Reg_long %>%
+  select(-c(position, share, C, P))
+
+
+Reg_long$risk <- with(Reg_long, risk - ave(risk, code, cohort, FUN = mean))
+
+Reg_long <- Reg_long %>%
+  select(-c(code, cohort))
+
+
+```
+
+
+```{r}
+
+library(ranger)
+library(data.table)
+library(mlr3)
+library(mlr3learners)
+library(DoubleML)
+
+fit_dml_plr <- function(data, y, d) {
+  set.seed(456)
+  data = as.data.table(data)
+  colnames(data) <- make.names(colnames(data))
+  x = setdiff(colnames(data), c(y, d))
+  dml_data = DoubleMLData$new(data, y_col = y, d_cols = d, x_cols = x)
+  learner_g = lrn("regr.ranger", num.trees = 500, min.node.size = 2, max.depth = 5)
+  learner_m = lrn("regr.ranger", num.trees = 500, min.node.size = 2, max.depth = 5)
+  dml_plr = DoubleMLPLR$new(dml_data, ml_m = learner_m, ml_l = learner_g,
+                            score = "partialling out", n_folds = 5, n_rep = 1)
+  dml_plr$fit()
+  summary <- dml_plr$summary()
+  return(summary)
+}
+
+```
+
+
+```{r}
+
+# Initialize an empty list to store the results
+results <- list()
+
+# Loop through each column in dt excluding "risk"
+for (i in setdiff(colnames(Reg_long), "risk")) {
+  
+  # Fit the DoubleMLPLR model for each column (i) as the treatment variable
+  dml_plr_model <- fit_dml_plr(Reg_long, "risk", i)
+  # Append the result to the results list
+  results[[i]] <- dml_plr_model
+}
+
+# Combine all results into a single dataframe
+final_results <- do.call(rbind, results)
+
+# View the combined results
+colnames(final_results) <- c("estimate", "std_error", "t_value", "p_value")
+
+
+
+```
+```{r}
+final_results  <-as.data.frame(final_results)
+final_results$treatment <- row.names(final_results)
+row.names(final_results) <- NULL  
+
+```
+
+
+```{r}
+wald_test <- function(final_results, variables) {
+  # Extract coefficients and standard errors for the variables of interest
+  coeffs <- final_results$estimate[final_results$treatment %in% variables]
+  se <- final_results$std_error[final_results$treatment %in% variables]
+
+  # Construct the covariance matrix (assuming independence)
+  cov_matrix <- diag(se^2)
+
+  # Define the hypothesis matrix H for testing if all variables' coefficients are equal
+  H <- matrix(0, nrow = length(variables) - 1, ncol = length(variables))
+  for (i in 1:(length(variables) - 1)) {
+    H[i, i] <- 1
+    H[i, i + 1] <- -1
+  }
+
+  # Compute the Wald statistic
+  wald_stat <- t(H %*% coeffs) %*% solve(H %*% cov_matrix %*% t(H)) %*% (H %*% coeffs)
+
+  # Compute the p-value for the Wald statistic (using chi-squared distribution)
+  p_value <- 1 - pchisq(wald_stat, df = nrow(H))
+
+  cat("Wald Statistic:", round(wald_stat, 4), "\n")
+  cat("p-value:", round(p_value, 4), "\n")
+}
+
+# Example of using the function with "C_1" to "C_5"
+
+
+```
+```{r}
+test_variables <- c("C_2", "C_3", "C_4", "C_5")
+wald_test(final_results, test_variables)
+test_variables <- c("P_2", "P_3", "P_4", "P_5")
+wald_test(final_results, test_variables)
+test_variables <- c("diff_21", "diff_32", "diff_43", "diff_54")
+wald_test(final_results, test_variables)
+
+```
+
+
+
+```{r}
+
+result <- apply(final_matrix[,4:length(final_matrix)], 1, function(row) {
+  sum(sapply(names(row), function(treatment) {
+    estimate <- final_results$estimate[final_results$treatment == treatment]
+    row[treatment] * estimate
+  }))
+})
+
+final_matrix$weight <- result
+final_matrix[final_matrix$position == "C1P1", "weight"] <- 0
+
+final_matrix$weight <- exp(final_matrix$weight)
+  
+```
+

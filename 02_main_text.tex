@@ -1,0 +1,297 @@
+\section{Introduction}
+
+``Every day, nearly 400,000 babies are born around the world. None of them get to choose their gender, race, place of birth, or the social and economic conditions of their families. Life’s starting point is a lottery. But the future needn’t be left to chance," said Kristalina Georgieva, Chief Executive Officer of the World Bank, in their report on global intergenerational mobility \citep{narayan2018fair}. All parents, but especially those in the poorest segments of society in low-income countries, hope their children will have a better life than they have. And every child in those circumstances aspires to social mobility—to break free from the constraints imposed by their birth. This idea was once called the ``American Dream," but the ideal has long transcended American borders, instilling hope in children struggling in poverty around the world. A more precise term for it is intergenerational mobility. However, a dream is just a dream when, as the World Bank report shows, upward mobility remains elusive for the poor, especially in developing countries \citep{narayan2018fair}. Even in the so-called ``land of opportunity," the U.S., opportunities for social mobility are not evenly distributed, as \citet{chetty2014land} has pointed out. This raises the question: Is our current progress fair?—the very theme of the report mentioned above \citep{narayan2018fair}. It also reinforces the call for equality of opportunity, as existing inequalities deepen disparities and suppress mobility, a pattern captured by what we now call the ``Great Gatsby curve."
+
+People advocate for equality of opportunity to promote social mobility. But what does equality of opportunity truly mean? Should socioeconomic outcomes be entirely independent of parental status, ensuring complete social fluidity? This notion aligns with Nobel laureate Amartya Sen’s concept of development as freedom\nocite{sen2000development}. However, true freedom must also be accompanied by capability. Consider a country where relative educational mobility—the extent to which a child's outcome depends on their parents—is high. If much of this mobility results from downward movement, high social fluidity does not necessarily indicate progress. This highlights a key limitation: social fluidity does not always equate to social advancement, a challenge we term \textit{the directionality problem}. Another concern relates to absolute mobility, which attempts to measure whether children attain higher education levels than their parents. Although this measure considers \textit{the ceiling problem}—the fact that children of the most educated parents cannot move upward—it still oversimplifies progress. For instance, two countries may report similar upward mobility rates, but in one, progress stems from children of the least-educated families reaching higher levels, while in the other, mobility occurs mainly within well-educated groups. This reflects \textit{the difficulty problem}: current metrics flatten varying degrees of effort and structural constraints into a single value. Local measures that focus on the least advantaged can inform distributional concerns in line with Rawlsian principles \citep{Rawls1971}, but they are less effective in advanced countries where most individuals are already highly educated. Together, the directionality problem and the difficulty problem call into question how social mobility is currently measured.
+
+To address these two problems, we develop a more comprehensive index to assess social progress in education using transition matrices, a method initially developed by \citet{prais1955measuring}, \citet{bibby1975methods}, and \citet{Bartholomew1967}. Firstly, we construct a target transition matrix representing the ideal educational progress that countries should achieve over time. The gap between actual and expected transition matrices is then measured. This approach accounts for country-specific factors, such as institutional and cultural contexts, ensuring that each country’s expected outcomes align with its initial educational distribution from the parent generation. By doing so, the measured gap reflects social progress while filtering out persistent factors like cultural norms or institutional constraints. More precisely, our index captures a country’s effort to improve social progress in education. While the expected matrices are country-specific, they follow a common underlying rule, aligning different countries to a shared reference frame for meaningful comparison. However, the validity of the index may be reduced in contexts affected by diploma inflation or shifts in educational quality, where formal attainment no longer reflects substantive progress. Despite this limitation, this new measure offers a more rigorous assessment of educational social progress, as it better reflects national efforts to enhance social mobility through education policies, independent of time-invariant country-specific contexts. Consequently, this study contributes to the measurement of global sustainable development goals.
+
+The next section (Section \ref{sec:current}) reviews existing measures of social mobility, primarily from the World Bank, while also incorporating recent developments in the field. It concludes by highlighting the gap between the desired measurement of social progress and the challenges posed by the difficulty and directionality problems. Section \ref{sec:new} then details the construction of a novel approach to address this gap. This methodology is applied to the recently released global database on intergenerational mobility from the World Bank, demonstrating how our index better captures social progress compared to existing measures (see Section \ref{sec:application}). The paper concludes with a discussion of its contributions to the field and potential directions for future research (see Section \ref{sec:conclusion}).
+
+
+
+\section{Current measures of social mobility} \label{sec:current}
+
+Social mobility is commonly measured using three approaches \citep{blanden2013cross}: ordinal transition matrices (education), continuous measures (earnings), and categorical measures (occupations). Earnings-based measures, such as intergenerational elasticity (IGE), provide numerical precision but are highly volatile due to career shifts, economic fluctuations, and exogenous shocks. Moreover, tracking income across generations requires reliable longitudinal data, which is often unavailable. Occupational measures, while easier to collect, lack strict hierarchical ordering and face classification inconsistencies across countries, making cross-national comparisons challenging. Education-based transition matrices provide a more stable and structured method for analyzing intergenerational mobility. Educational attainment is widely accessible, less prone to short-term fluctuations, and offers a clear, ordered ranking that corresponds with social stratification. This enables a systematic evaluation of mobility patterns across generations. Education-based measures are frequently used for global comparisons due to their reliability and comparability due to its uniform international classification (ISCED). Although these matrices may be less effective in cases of diploma inflation or changes in educational quality, they remain one of the most reliable indicators of intergenerational mobility, effectively capturing the persistence of social status across generations.
+
+\paragraph{Common measures}  
+
+Intergenerational mobility in education can be assessed through two key concepts: absolute mobility and relative mobility. This study primarily adopts the World Bank’s approach \citep{van2024intergenerational, narayan2018fair} to intergenerational mobility (as shown in Table \ref{tab:measures}). Absolute mobility measures the proportion of individuals who achieve a higher education level than their parents. Two key indicators for this are \textit{CAT}, which calculates the probability that a child surpasses their parents’ education level assuming the parents did not complete university, and \textit{MIX}, which includes both children who exceed their parents' education and those who reach university if at least one parent did. In contrast, relative mobility focuses on how much a child’s education is influenced by their parents’ education. The lower the dependency on parents' education, the higher the relative mobility. This is often measured with statistical indicators such as \textit{1-COR}, which calculates one minus the correlation between parents’ and children’s years of schooling, and \textit{1-BETA}, which is derived from a regression model predicting a child’s years of schooling based on their parents' years of schooling. Both of these metrics suggest that higher values indicate greater mobility. Additionally, several measures specifically focus on mobility for children from disadvantaged backgrounds. \textit{MU050} estimates the expected education level of a child whose parents are in the bottom half of the education distribution. \textit{BHQ4} measures the likelihood that a child from a low-education family reaches higher education levels, while \textit{AHMP} tracks the percentage of children who complete primary school when neither parent has done so.
+
+\input{Tables/measures}
+
+\paragraph{Other measures}
+
+There are additional measures beyond those mentioned above, which have been adopted by the World Bank, but they are less commonly used for comparing social progress across countries. The Prais-Bibby index \citep{bibby1975methods, prais1955measuring} quantifies mobility by measuring the proportion of individuals who change ranks between generations, providing a straightforward approach to assessing relative mobility. The Bartholomew index \citep{Bartholomew1967} focuses on movement between ordered categories, particularly in education, calculating the weighted average distance moved between parental and children's categories. Its standardized version offers a clearer view of upward mobility. \citet{apouey2023ordinal} introduced an inequality-sensitive and additive achievement measure for ordinal data, which combines both average achievement and the inequality of achievement within a generation, offering a more nuanced perspective on mobility that accounts for both individual movement and societal inequality. The upward mobility kernel developed by \citet{ray2023measuring}, based on the principle of growth progressivity, provides a theoretical framework for measuring upward mobility by considering individual growth rates in relation to baseline income. Finally, entropy-based measures \citep{mueller2021entropy}, derived from information theory, evaluate how much a parent’s status reduces uncertainty about a child's future status. Higher information gain in this context suggests stronger intergenerational dependence and, consequently, higher immobility. Together, these indices and measures form a comprehensive toolkit for analyzing the complex dynamics of social mobility.
+
+\paragraph{The big gap}
+
+Nevertheless, there is a gap between current measures of social progress. The definition of social progress is broad, encompassing not only education and income but also health, well-being, and human rights \citep{narayan2018fair, blanden2013cross, deutscher2023measuring}. The focus here is not on defining social progress in its entirety but on highlighting how current measurements of social mobility do not fully capture social progress in education. While social progress in education can be closely linked to intergenerational mobility—where each generation attains better education—existing measures fail to capture social progress across countries. Consider two illustrative examples. First, a comparison between Bhutan and the Central African Republic (as shown in Figure \ref{fig:compare1}) reveals that their absolute mobility, measured by the indices \textit{CAT} and \textit{MIX}, is nearly identical. However, the Central African Republic exhibits significantly higher relative mobility, as indicated by $1 - BETA$ (0.53 vs. 0.21 for Bhutan). Based on this, one might conclude that the Central African Republic has achieved greater social progress than Bhutan. However, looking at their transition matrices reveals a different story. The Central African Republic has higher relative mobility primarily due to widespread downward mobility—for instance, over 35\% of individuals with parents who attained at least primary education have themselves remained below the primary level ($C_1P_2 + C_1P_3 > 35\%$). This example demonstrates that social fluidity does not necessarily translate into progress. This issue is referred to as the \textit{directionality problem}. The directionality problem is not only about distinguishing upward from downward mobility but also about considering intergenerational persistence (social stagnation), which is less concerning than downward mobility. In Bhutan’s case, persistence is high. However, this is preferable to the higher prevalence of downward mobility seen in the Central African Republic.
+
+\begin{figure}[!ht]
+    \centering
+    \scalebox{0.55}{\includesvg{figs/compare1.svg}}
+    \caption{Absolute Mobility Comparison}
+    \label{fig:compare1}
+    \captionsetup{font=footnotesize}
+    \caption*{\textbf{Notes:} \textit{CAT} measures absolute mobility, \textit{1-BETA} measures relative mobility. The data is sourced from the Global Database on Intergenerational Mobility (2023). The analysis focuses on the 1980 cohort, comparing the education levels of all children to the maximum education level of their parents.}
+\end{figure}
+
+The second example compares Canada and Timor-Leste (as shown in Figure \ref{fig:compare2}), where Canada exhibits higher absolute and relative mobility. However, can one conclude that Canada has made more progress than Timor-Leste? Examining their transition matrices suggests otherwise. It would be unfair to say that Timor-Leste has made less progress simply because its mobility primarily comes from disadvantaged groups, whereas mobility in Canada occurs mostly among the upper class. The effort required to achieve mobility in these two contexts is vastly different. More than a quarter of Timor-Leste’s population, whose parents had less than primary education, managed to move up to the upper secondary or tertiary level, indicating a significant achievement. In contrast, mobility in Canada mostly involves individuals moving from upper secondary to tertiary education, which represents a smaller feat in comparison. This issue is referred to as the \textit{difficulty problem}, as different social classes face different levels of difficulty in achieving the same educational outcome. For example, the hurdle of intergenerational transition from $P_1$ to $C_5$ is higher than that from $P_4$ to $C_5$. Notably, \textit{CAT} does not account for individuals whose parents had tertiary education, and \textit{MIX} treats cases where both parents and children attain the highest education level ($C_5P_5$) as upward mobility is restricted due to ceiling effects.
+
+\begin{figure}[!ht]
+    \centering
+    \scalebox{0.55}{\includesvg{figs/compare2.svg}}
+    \caption{Relative Mobility Comparison}
+    \label{fig:compare2}
+    \captionsetup{font=footnotesize}
+    \caption*{\textbf{Notes:} \textit{CAT} measures absolute mobility, \textit{1-BETA} measures relative mobility. The data is sourced from the Global Database on Intergenerational Mobility (2023). The analysis focuses on the 1980 cohort, comparing the education levels of all children to the maximum education level of their parents.}
+\end{figure} 
+
+\textit{In summary}, current measures of social mobility are inadequate for assessing social progress in education. They also do not allow for a straightforward comparison between countries. Although local measures can be helpful, they cannot capture a comprehensive picture of social progress. Therefore, we developed a more comprehensive index to evaluate the social progress of education using transition matrices. This approach functions like a dimensionality reduction method that condenses information into a single uni-dimensional measure. However, this measure provides far more insight into social progress than conventional dimensionality reduction techniques.. The proposed methodology directly addresses the difficulty and directionality problems outlined above. In the following section, a target transition matrix is constructed to represent the ideal educational progress countries should achieve over time. The gap between the actual and expected transition matrices is then measured. This method accounts for country-specific backgrounds (such as institutional and cultural factors), ensuring that each country’s expected outcomes align with its initial educational distribution from the parent generation. By doing so, the gap reflects social progress while eliminating differences that are relatively stable over time, such as cultural norms or institutional constraints. More precisely, our index measures the country's effort to obtain social progress in terms of education. Importantly, while the expected matrices are country-specific, they follow a common underlying rule—similar to aligning different countries to a shared reference frame for meaningful comparison.
+
+\section{A new measure of social progress} \label{sec:new}
+
+As discussed in the previous section, we define the expected transitions matrix to compute the gap between the actual matrix and the expected one, measuring the social progress gap via education. An expected transitions matrix must address both the difficulty and directionality problems while remaining country-specific to eliminate unobserved fixed effects such as culture and institutions. Therefore, we start with the original education distribution of the parent generation, where \( P_1 \) is the probability of a parent having education level 1, \( P_2 \) for level 2, \( P_3 \) for level 3, \( P_4 \) for level 4, and \( P_5 \) for level 5. Our goal is to establish the destination education distribution of the child generation while preserving the original distribution. In other words, the row sums of the expected matrix at each parent education level must equal those of the actual matrix:  
+\begin{equation}
+\sum_{i=1}^{5} \operatorname{Pr}[R_c = i, R_p = j] = \operatorname{Pr}[R_p = j] = P_j.
+\label{eq:1}
+\end{equation}
+
+\paragraph{The directionality problem}
+To address the directionality problem, we divide the expected matrix into three areas: downward, persistent, and upward (see Table \ref{tab:matrix}). Since the expected matrix reflects the desired pattern of social mobility, the downward area should be zero (as there is no social progress involved in downward mobility), the persistent area should be minimized (but remain greater than zero, as it is not as undesirable as downward mobility and is an inevitable part of social mobility), and the remaining probabilities should be allocated to the upward region. There are two major issues to resolve here. First, we must determine the minimum extent of the intergenerational transmission. As discussed earlier regarding the ceiling effect, when parents have the highest education level, their children have no possible space for upward mobility. Therefore, this case cannot be treated the same as other persistent cases. In the expected matrix, children should retain their parents' highest education level, meaning  
+\[
+\operatorname{Pr}[R_c=5, R_p=5]=\operatorname{Pr}[R_p=5]=P_5.
+\]
+For other cases in the persistent area, an intergenerational transmission effect of education is assumed, recognizing that parenting itself serves as a form of education. However, the genetic lottery is not expected to influence educational outcomes. In terms of equality of opportunity, as defined by \citet{roemer2015equality}, luck—such as the genetic lottery—should be independent of outcomes. Based on evidence on the causal effect of intergenerational transmission (which isolates genetic transmission from education attainment), we assume a true intergenerational effect of \(\omega=0.1\) following \citet{holmlund2011causal}. This implies that there is a 10\% probability that children remain at the same education level as their parents:  
+\[
+\operatorname{Pr}[ R_{c} =i, R_{p} =i] =\omega \operatorname{Pr}[ R_{p} =i],\ \forall \ i< 5.
+\]
+
+We recognize that our method is sensitive to the choice of \(\omega\). To assess robustness, we conducted an additional calculation with \(\omega = 0.15\), following \citet{fleury2018intergenerational}, and found that the results remain stable (see \ref{app:sensitive}). One could argue for using \(BETA\) values from each country or the mean of \(BETA\) across countries as persistent probabilities instead of our approach. However, using country-specific \(BETA\) values would not produce a comparable index. In countries with high actual persistence, such as Bhutan, the difference between the expected and actual matrices would be small, making it impossible to conclude whether Bhutan is progressive. While the mean \(BETA\) across countries might better measure progress, it does not address the problem of the genetic lottery, which is a barrier to equality of opportunity. Moreover, \(BETA\) is derived from actual values, whereas an expected matrix should be defined independently of actual values to properly measure progress. 
+Therefore, setting a fixed intergenerational effect makes more sense as a shared reference frame. However, it remains subject to the original circumstances of each country since the persistent value is determined by the product of \(\omega\) and the original education distribution of the parent generation.
+
+\paragraph{The difficulty problem}
+
+The second major challenge lies in distributing the remaining probabilities into the upward area while adhering to the difficulty rule. To address this, we first establish assumptions for an ideal society that promotes social progress.
+
+\begin{assumption} \label{assump:1}
+Society should ensure that every child can achieve up to  an education level \( R_c \leq z \)  that is obtained by others  with the same background \( R_p = i \).
+\[
+\operatorname{Pr}(R_c = j, R_p = i \mid R_c = z, R_p = i) = 1, \forall j < z.
+\]
+\end{assumption}
+
+\begin{assumption} \label{assump:2}
+Society expects that children from better backgrounds (\( R_p > i \)) will achieve at least the same education level \( R_c = z \) as those from disadvantaged backgrounds (\( R_p < j \)).
+\[
+\operatorname{Pr}(R_c = z, R_p = j \mid R_c = z, R_p = i) = 1, \forall i < j.
+\]
+\end{assumption}
+
+From Assumptions \ref{assump:1} and \ref{assump:2}, we can infer:
+
+\begin{equation} \label{eq:2}
+\begin{array}{l}
+\operatorname{Pr}(R_c = z, R_p = j \cap R_c = j, R_p = i \mid R_c = z, R_p = i) = 1 \\
+\Rightarrow \operatorname{Pr}(R_c = j, R_p = j \mid R_c = z, R_p = i) = 1
+\end{array}
+\end{equation}
+
+This implies that if children have experienced significant upward mobility (e.g., from \( i \) to \( z \)), others should also be able to achieve mobility within the range from \( i \) to \( z \). This includes the possibility of intergenerational persistence, where children are able to remain in the same social class as their parents \( i \).
+
+\begin{assumption} \label{assump:3}
+The chances of achieving education for individuals on different, non-overlapping social mobility paths (e.g., from level \( i \) to \( j \) versus from \( j \) to \( z \)) are independent of each other.
+\[
+\operatorname{Pr}(R_c = j, R_p = i \mid R_c = z, R_p = j) = \operatorname{Pr}(R_c = j, R_p = i), \forall j < z.
+\]
+\end{assumption}
+
+From Assumption \ref{assump:3}, we multiply both sides by \( \operatorname{Pr}(R_c = z, R_p = j) \):
+
+\[
+\begin{array}{l}
+\operatorname{Pr}(R_c = j, R_p = i) \times \operatorname{Pr}(R_c = z, R_p = j) \\
+= \operatorname{Pr}(R_c = j, R_p = i \mid R_c = z, R_p = j) \times \operatorname{Pr}(R_c = z, R_p = j) \\
+= \operatorname{Pr}(R_c = j, R_p = i \cap R_c = z, R_p = j)
+\end{array}
+\]
+
+Because of the commutative property of intersection in probability, the right-hand side can be rewritten as:
+
+\[
+\operatorname{Pr}(R_c = j, R_p = i) \times \operatorname{Pr}(R_c = z, R_p = j) = \operatorname{Pr}(R_c = j, R_p = j \cap R_c = z, R_p = i)
+\]
+
+By applying Equation~\eqref{eq:2} to this, we obtain:
+
+\[
+\operatorname{Pr}(R_c = z, R_p = i) = \operatorname{Pr}(R_c = z, R_p = j) \times \operatorname{Pr}(R_c = j, R_p = i).
+\]
+To operationalize this, let \( a \), \( b \), \( c \), and \( d \) represent the probabilities of transitioning from one education level to the next, in accordance with Assumption \ref{assump:3}, specifically: \( a = \operatorname{Pr}(R_c = 2, R_p = 1) \), \( b = \operatorname{Pr}(R_c = 3, R_p = 2) \), \( c = \operatorname{Pr}(R_c = 4, R_p = 3) \), and \( d = \operatorname{Pr}(R_c = 5, R_p = 4) \). Using these definitions, we express the expected transition matrix (see Table \ref{tab:matrix}) as follows:
+
+\input{Tables/expected}
+
+Applying the law of total probability to this structure, the constraints on the transition probabilities can be written as:
+
+\[
+\begin{cases}
+a + a \times b + a \times b \times c + a \times b \times c \times d = (1 - \omega) P_1 < 1, \\
+b + b \times c + b \times c \times d = (1 - \omega) P_2 < 1, \\
+c + c \times d = (1 - \omega) P_3 < 1, \\
+d = (1 - \omega) P_4 < 1.
+\end{cases}
+\]
+Solving for \( a \), \( b \), \( c \), and \( d \), we get:
+
+\begin{equation}
+\begin{cases}
+\displaystyle a = \frac{(1 - \omega) P_1}{1 + (1 - \omega) P_2} < 1, \\
+\displaystyle b = \frac{(1 - \omega) P_2}{1 + (1 - \omega) P_3} < 1, \\
+\displaystyle c = \frac{(1 - \omega) P_3}{1 + (1 - \omega) P_4} < 1, \\
+\displaystyle d = (1 - \omega) P_4 < 1.
+\end{cases}
+\label{eq:3}
+\end{equation}
+As shown in equation~\eqref{eq:3}, all transition probabilities are less than one, meaning the allocation of probabilities into the upward area remains valid. Figure~\ref{fig:VNM_USA} presents real examples from Vietnam and the United States using our method, with the left-side charts displaying the actual transition matrices and the right-side charts showing the expected matrices.
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.55}{\includesvg{figs/VNM_USA.svg}}
+    \caption{The expected matrices for Vietnam and The US}
+    \label{fig:VNM_USA}
+\end{figure}
+
+
+
+\paragraph{The progress gap}
+
+To calculate the progress gap between the actual $Q(x)$ and expected $P(x)$ matrices, f-divergences are utilized, which commonly include KL-divergence \citep{csiszar1975divergence}, Hellinger distance \citep{jeffreys1946invariant}, and total variation distance \citep{chatterjee2008distances}. The \textit{KL-divergence} is defined as
+
+\[
+D_{\text{KL}} = \sum_{x} P(x) \log \left[ \frac{P(x)}{Q(x)} \right].
+\]
+However, because \( P(x) \) and \( Q(x) \) can be zero or approaching zero, the KL-divergence can yield extremely high values, which may not always be desirable. In contrast, the \textit{Hellinger distance} provides a more robust measure, defined as
+
+\[
+\begin{aligned}
+D_{\text{HL}} &= \frac{1}{\sqrt{2}} \sqrt{\sum_{x} \left( \sqrt{P(x)} - \sqrt{Q(x)} \right)^2} \\
+&= \sqrt{\frac{1}{2} \sum_{x} \left[ \sqrt{P(x)} - \sqrt{Q(x)} \right]^2}
+\end{aligned}.
+\]
+This formulation captures the differences between distributions without the issues associated with zero probabilities. Finally, the total variation distance is given by
+
+\[
+\begin{aligned}
+D_{\text{TV}} &= \frac{1}{2} \sum_{x} |P(x) - Q(x)| \\
+&= \frac{1}{2} \sum_{x} \left| \left[ \sqrt{P(x)} - \sqrt{Q(x)} \right] \left[ \sqrt{P(x)} + \sqrt{Q(x)} \right] \right|
+\end{aligned}.
+\]
+While \textit{total variation distance} is another common measure, it is affected by the term \(\left[ \sqrt{P(x)} + \sqrt{Q(x)} \right]\), making it less sensitive to small differences compared to the Hellinger distance. As a result, the Hellinger distance is considered a more effective way to capture the gap between the actual and expected distributions.
+
+Based on the Hellinger distance, we develop \textit{the Progress Gap} as a measure of social progress to calculate the distance between the actual matrix and the expected matrix. The Progress Gap \( D_{\text{PG}} \) is defined as:
+
+\[
+D_{\text{PG}} = \frac{1}{\sqrt{2}} \sum_{x \in U} \left[ \sqrt{P(x)} - \sqrt{Q(x)} \right] - \frac{1}{\sqrt{2}} \sum_{x \notin U} \left[ \sqrt{P(x)} - \sqrt{Q(x)} \right],
+\]
+where \( U \) is the set of probabilities in the upward area, defined as \( U = \{ (c,p) \mid 1 \leq c < p \leq 5 \} \cup \{ (5,5) \} \), with \( c \) representing the child’s education level and \( p \) representing the maximum parent’s education level. Unlike the Hellinger distance, which uses the absolute value \( \sqrt{[f(x)]^2} \) to measure the distance, we adjust the signs to fit the definition of social progress. Specifically, downward and persistent mobility are considered ``bad" signs, while upward mobility is seen as a ``good" sign. Since the expected value can be exceeded if a country implements effective radical education policies, resulting in \( \left[\sqrt{P(x)} - \sqrt{Q(x)}\right] < 0 \), this exceptional achievement is deducted from the progress gap, making the gap smaller. Because our progress gap index can be negative, exceeding the range of [0,1], we apply a max-min normalization to facilitate comparisons with both absolute and relative mobility:
+
+\[
+D_{\text{PG}|\text{norm}} = \frac{D_{\text{PG}} - \min(D_{\text{PG}})}{\max(D_{\text{PG}}) - \min(D_{\text{PG}})}.
+\]
+
+Since the goal of this research is to compare social progress among countries, normalization makes sense as it provides a relative measure rather than an absolute one, which is more sensitive to predefined assumptions. To ensure robustness, our methods should be applied consistently across countries using the same settings. This includes analyzing the same cohorts and employing the same comparison methods. Specifically, we recommend using the maximum education level of both parents versus the education level of the child, which has been considered the most reliable approach \citep{van2024intergenerational}. By maintaining these consistent criteria across different countries, we can better ensure that the progress gap measurement reflects meaningful and comparable social progress, minimizing potential biases that could arise from differing methods or population characteristics. This consistency is crucial for drawing valid comparisons and understanding social mobility across countries.
+
+\section{Application to a new global dataset} \label{sec:application}
+
+
+We apply our method to the Global Database on Intergenerational Mobility (GDIM), which consolidates data from over 400 household surveys, providing a comprehensive analysis of social mobility in education across 153 countries, representing about 97 percent of the global population, with the latest cohort from the 1980s. The unit of analysis represents each survey, including details such as the country, cohorts of respondents, survey year, methods for calculating parents' education (Mother/Father/Average/Max), methods for calculating children's education (Sons/Daughters/All), the number of observations, and key indicators such as the share of parents with different education levels, the share of children with different education levels, and measures of social mobility for that survey. Each survey has many metrics, including but not limited to: \textit{CAT}, which measures the probability that a child surpasses the parent’s educational category (conditional on the parent not having tertiary education); \textit{MIX}, which measures the probability of a child surpassing the parent’s educational category while considering children with tertiary education as mobile; \textit{CAT\_ISCED0} (equivalent to \textit{AHMP}), which tracks the probability of a child surpassing the parent’s educational category when parents have less than primary education; $COR$, the correlation coefficient between the children's and parents' years of schooling; \textit{BETA}, the beta coefficient from regressing children's years of schooling on parents' years of schooling; \textit{MU050}, the expected educational rank of a child born in the bottom half; \textit{BHQ4}, the probability that a child from the bottom half reaches the top quartile; and the Transition Matrix.
+
+This study focuses on evaluating absolute mobility, measured by \textit{CAT}, and relative mobility, measured by 1-BETA. While local measures such as \textit{AHMP}, \textit{MU050}, and \textit{BHQ4} can be useful for assessing inequality among disadvantaged groups, they do not adequately capture social mobility at the societal level. Regarding absolute mobility, \textit{CAT} is more closely aligned with our index than \textit{MIX}. Although both measure upward mobility, they differ in how they account for the ceiling effect. \textit{CAT} ignores the ceiling effect by treating it as a form of intergenerational persistence, whereas MIX considers it a type of upward mobility. In our approach, the ceiling effect is viewed as both persistent and upward. Specifically, in the expected matrix, the probability that a child of the highest-educated parents attains the highest education level remains stable across generations, with the conditional probability always equal to 1, but stability is maintained only between parents and children due to the inflow of social mobility in subsequent generations. However, upward mobility is still present because, for other lower education levels, only 10\% of individuals should retain their parents' education level, implying that 90\% should experience upward mobility. In cases of ceiling upward mobility, individuals reach the highest education level, just like their parents. For relative mobility, we agree with \citet{van2024intergenerational} that \textit{1-BETA} better represents relative mobility compared to \textit{1-COR}, as \textit{BETA} is not influenced by education inequality in the child generation $\operatorname{Var}(Y_c)$. In summary, this study will compare different measures of social mobility, focusing on CAT, 1-BETA, and our proposed index.
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.5}{\includesvg{figs/abs_rel.svg}}
+    \caption{Absolute and Relative Mobility}
+    \label{fig:abs_rel}
+\end{figure}
+
+To compare with the mobility indexes reported in the World Bank's analysis using GDIM, the data is filtered by selecting parents' education as the maximum level (the most robust measure), children's education as all (gender-neutral), and the 1980s cohort (the latest available). Absolute and relative mobility in GDIM are presented in Figure \ref{fig:abs_rel}. There is a significant gap in interpretation between absolute mobility (\textit{CAT}, which captures upward trends) and relative mobility (\textit{1-BETA}, which reflects social fluidity). For example, in the case of South Sudan, relative mobility is relatively high, comparable to upper-middle-income countries like Thailand and Malaysia. However, South Sudan has the lowest absolute mobility, whereas Thailand and Malaysia rank among the highest in absolute mobility. While \citet{van2024intergenerational} ``refrain from using the terms absolute and relative," treating them interchangeably under the single term ``social mobility" should be reconsidered. Measures of absolute mobility, such as \textit{CAT} and \textit{MIX}, are often categorized as social mobility, but in reality, they assess social progress (albeit imperfectly) with a focus on upward trends. In contrast, measures of relative mobility, such as \textit{1-COR} and \textit{1-BETA}, are also framed as social mobility, but they actually capture social fluidity, which aligns more closely with concepts like entropy. While both social progress and social fluidity can be interpreted in terms of equality of opportunity, social progress is inherently directional.
+
+\paragraph{New global rankings}
+
+From GDIM, we calculate the progress gap as outlined in Section 3. The data cleaning process ensures that each transition matrix sums to 1, as the original GDIM data is set such that the total share of all children with the same family background equals 1, \(\sum_{i=1}^{5} \operatorname{Pr}[R_c = i| R_p] = 1\). Figure \ref{fig:rank} visually ranks countries based on our progress gap index and groups them into three equal-sized categories. Each bar represents a country, colored according to its region, allowing for regional comparisons of progress. The chart also includes three key mobility measures represented by different symbols: absolute mobility \textit{CAT} (blue squares), relative mobility \textit{1-BETA} (red circles), and a progressive measure \textit{MIX} (green triangles). The full details are shown in the  \ref{app:list}. According to our progress gap index, South Korea and Taiwan are the most progressive economies, linked to their exceptional economic development \citep{morris1996asia}, while the Central African Republic and Zambia rank the lowest. To provide a clearer regional distribution, we present the progress gap index on a global map. The results indicate that Africa and South Asia are less progressive, whereas most developed countries show higher progressiveness. Interestingly, Latin America demonstrates progress in education, but this does not translate into economic development. This can be explained by the mismatch between education and labor market outcomes in the region, as discussed by \citet{bassi2012disconnected}.
+
+\begin{landscape}
+\begin{figure}[H]
+    \centering
+    \scalebox{0.49}{\includesvg{figs/rank.svg}}
+    \caption{Global Rankings by Progress Gap}
+    \label{fig:rank}
+\end{figure}
+\end{landscape} 
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.55}{\includesvg{figs/map.svg}}
+    \caption{Global mobility by a new measurement}
+    \label{fig:map}
+\end{figure}
+
+One of the potentially controversial cases in our proposed index is Bhutan and Iceland, which appear next to each other in the ranking of the progress gap. To clarify this, we present their transition matrices in Figure \ref{fig:compare3}. It is evident that Bhutan lags significantly behind Iceland in both absolute mobility (0.16 vs. 0.51) and relative mobility (0.21 vs. 0.76). Additionally, Iceland's education distribution is far better than Bhutan’s, as most of Iceland’s population is highly educated, whereas the majority of Bhutan’s population has not attained even primary education. There is ample evidence to conclude that Iceland is much more progressive than Bhutan. However, this overlooks the difficulty problem when discussing equality of opportunity. Iceland’s initial conditions were significantly better than Bhutan’s, so a simple comparison based on education distribution alone is insufficient. Our measure, as the name implies, assesses the progress gap by evaluating the shortfall from the predefined target rather than the current status.  This case also illustrates a fundamental conflict between the concepts of social progress and social fluidity when both are used to assess equality of opportunity. Specifically, while we do not deny that Iceland likely provides greater social fluidity than Bhutan (as reflected in higher relative mobility), such freedom does not necessarily translate into social progress. As Figure \ref{fig:compare3} shows, Iceland’s downward mobility rate is just as high as its upward mobility rate. In summary, in terms of social progress, Bhutan and Iceland are nearly identical, despite their significant differences in social fluidity.
+
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.55}{\includesvg{figs/compare3.svg}}
+    \caption{Bhutan vs. Iceland}
+    \label{fig:compare3}
+    \captionsetup{font=footnotesize}
+    \caption*{\textbf{Notes:} \textit{CAT} measures absolute mobility, \textit{1-BETA} measures relative mobility. The data is sourced from the Global Database on Intergenerational Mobility (2023). The analysis focuses on the 1980 cohort, comparing the education levels of all children to the maximum education level of their parents.}
+\end{figure}
+
+\paragraph{Comparison to current measures}
+Finally, we examine the relationship between our new index, absolute mobility, and relative mobility using linear relationships in Figures \ref{fig:abs_pro} and \ref{fig:rel_pro}. Our index closely aligns with absolute mobility in capturing social progress and shows minimal outliers. However, while both measure social progress, our index is more advanced as it addresses the directionality problem. Due to this limitation, absolute mobility fails to differentiate between countries experiencing a downward trend, such as the Central African Republic and Zambia, and those with more persistent trends, such as Burundi, Bhutan, and Burkina Faso. Compared to relative mobility, our index highlights significant differences stemming from the fundamental distinction between social fluidity and social progress, as discussed earlier. For instance, both Timor-Leste (Figure \ref{fig:compare1}) and the Central African Republic (Figure \ref{fig:compare2}) exhibit high relative mobility. However, Timor-Leste’s mobility is upward, whereas the Central African Republic’s is downward. Regarding the difficulty problem, Figures \ref{fig:compare2} (current measures) and \ref{fig:rank} (our index) illustrate the case of Canada and Timor-Leste. Under our framework, Timor-Leste appears more progressive than Canada because it has had greater success in achieving efforts toward social progress, even though Canada has a much higher level of education. In this case, we also account for the ceiling effect. In summary, our index provides a more robust measure of social mobility than existing metrics.
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.5}{\includesvg{figs/abs_pro.svg}}
+    \caption{Compared to absolute mobility}
+    \label{fig:abs_pro}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \scalebox{0.5}{\includesvg{figs/rel_pro.svg}}
+    \caption{Compared to relative mobility}
+    \label{fig:rel_pro}
+\end{figure}
+
+
+\section{Conclusion} \label{sec:conclusion}
+
+Current measures of social mobility fail to fully capture social progress in education. For example, although Bhutan and the Central African Republic exhibit comparable absolute mobility levels, the greater relative mobility in the Central African Republic stems from more frequent downward mobility, which does not indicate actual progress. Similarly, although Canada and Timor-Leste exhibit different mobility levels, the effort required for mobility in Timor-Leste is much greater, suggesting a different form of progress. To address these issues, this study develops a new index based on transition matrices, offering a more rigorous measure of educational social progress. By constructing an expected transition matrix that accounts for country-specific factors, this approach isolates genuine progress while filtering out persistent institutional and cultural constraints. The resulting measure aligns countries to a common reference frame, allowing for more meaningful comparisons of national efforts to advance social mobility through education. Our progress gap index, calculated using data from the GDIM, provides a clearer assessment. It shows that South Korea and Taiwan are the most progressive in terms of educational mobility, while countries like the Central African Republic and Zambia rank the lowest. Regional trends reveal that Africa and South Asia are less progressive, while most developed countries show higher progress.
+
+Although our method is based on the World Bank’s approach and reports, the scope of this study extends beyond the confines of this study. The current measures we review are not exclusive to the World Bank; they are widely used in the field of social mobility \citep{corak2020canadian, chetty2014land, asher2019getting, alesina2021intergenerational, chetty2017fading}. To clarify, we are not studying a unique measurement used by one organization for its own report, but rather evaluating common measures in the field that have been compiled and applied by the World Bank in its recent database release. Moreover, our method can be extended to other ordinal measurements using mobility tables, such as self-reported health \citep{halliday2021intergenerational} or well-being \citep{molina2011intergenerational}. However, this would require further research and testing. One limitation of our method is its sensitivity to the selection of the true effect of intergenerational transmission, as some studies may report the effect as slightly larger - that is $\omega=0.15$, as shown by \citet{fleury2018intergenerational}. Nonetheless, this does not significantly change the overall findings of our study (see \ref{app:sensitive}).
+
+\section*{Supplementary material}
+An online appendix for this article is available on the journal's website.
+
+\section*{Data availability}
+The data and code supporting the findings of this study are available at \url{https://github.com/duongkhanhk29/MEASURE_MOBILITY/}.
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{03_ref}
+
+
+\appendix
+
+\newpage
+\section{List of countries} \label{app:list}
+\input{Appendix/countries}
+
+\newpage
+\section{Sensitive analysis} \label{app:sensitive}
+\input{Appendix/sensitive}
+
+
