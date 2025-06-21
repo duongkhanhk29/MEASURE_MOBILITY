@@ -95,7 +95,9 @@ P_df$C5P4 <-mobility$d
 gap_df <- sqrt(Q_df) - sqrt(P_df)
 gap_df$index <- rowSums(gap_df[, setdiff(names(gap_df), upward)])*1/sqrt(2) - rowSums(gap_df[, upward])*1/sqrt(2)
 
-filtered_df <-cbind(Dt[, c("code", "country", "region_noHICgroup","obs", "CAT", "1-BETA", "MIX" )],gap_df)
+filtered_df <-cbind(Dt[, c("code", "country", "region_noHICgroup","obs", "CAT", "1-BETA", "MIX" )],Q_df)
+
+filtered_df$index <- gap_df$index
 
 filtered_df$index <- scales::rescale(filtered_df$index, to = c(0, 1))
 
@@ -158,9 +160,18 @@ compare <- function(code1, code2) {
 }
 
 analyze_gap <- function(df, a, a_label, b, b_label) {
+  df <- df %>% filter(!is.na(.data[[a]]), !is.na(.data[[b]]))
   lm_fit <- lm(as.formula(paste("`", b, "` ~ `", a, "`", sep = "")), data = df)
   df$residuals <- residuals(lm_fit)
   
+  # Extract regression stats
+  summary_fit <- summary(lm_fit)
+  slope <- formatC(coef(lm_fit)[2], format = "f", digits = 3)
+  p_value <- formatC(summary_fit$coefficients[2, 4], format = "f", digits = 3)
+  stat_label <- paste0("Slope = ", slope, 
+                       ", P-value = ", p_value)
+
+  # Identify outliers
   outliers_df <- bind_rows(
     df %>% filter(residuals > 0) %>% top_n(5, residuals),
     df %>% filter(residuals < 0) %>% top_n(-5, residuals),
@@ -168,14 +179,16 @@ analyze_gap <- function(df, a, a_label, b, b_label) {
     df %>% top_n(-5, .data[[b]])
   ) %>% distinct(country, .keep_all = TRUE)
   
+  # Generate plot
   plot <- ggplot(df, aes(x = .data[[a]], y = .data[[b]])) +
     geom_point(aes(color = region_noHICgroup), size = 3, alpha = 0.7) +
     geom_smooth(method = "lm", se = FALSE, color = "black", linetype = "dashed") +
     geom_text_repel(data = outliers_df, aes(label = country), vjust = -1, size = 4, color = "black") +
     scale_color_manual(name = "Regions", values = region_colors) +
-    labs(x = a_label, y = b_label) +
-    theme_bw()
-  
+    labs(x = a_label, y = b_label, subtitle = stat_label) +
+    theme_bw() + theme(plot.subtitle = element_text(hjust = 0)) +
+    theme(plot.caption = element_text(hjust = 0))  # left-align caption
+
   return(plot)
 }
 
@@ -185,14 +198,17 @@ analyze_gap <- function(df, a, a_label, b, b_label) {
 
 ```{r fig.height=7, fig.width=12}
 abs_rel <- analyze_gap(filtered_df, "1-BETA", "Relative Mobility", "CAT", "Absolute Mobility")
-rel_pro <- analyze_gap(filtered_df, "1-BETA", "Relative Mobility", "index", "Progress Gap")
-abs_pro <- analyze_gap(filtered_df, "CAT", "Absolute Mobility", "index", "Progress Gap")
+rel_pro <- analyze_gap(filtered_df, "1-BETA", "Relative Mobility", "index", "Progress Gap") + ggtitle("A. Compared to Relative Mobility")
+abs_pro <- analyze_gap(filtered_df, "CAT", "Absolute Mobility", "index", "Progress Gap") + ggtitle("B. Compared to Absolute Mobility")
+
+internal <- grid.arrange(rel_pro, abs_pro, ncol = 1)
 
 
 ```
 
 ```{r fig.height=4, fig.width=8}
-compare1 <- compare("BTN","CAF") 
+compare1 <- compare("BDI","CAF") 
+
 ```
 
 
@@ -216,6 +232,17 @@ USA <- heatmap("USA")
 VNM_USA <- grid.arrange(heatmap("VNM"), USA, ncol = 1)
 
 ```
+
+```{r}
+c1 <- compare("CHN","CHE") 
+c3 <- compare("FIN","FRA") 
+c2 <- compare("GBR","USA") 
+
+main <- grid.arrange(c1, c2, c3, ncol = 1)
+
+```
+
+After this, the heatmap render  incorrectly due to changes in the ordering of countries.
 
 # Ranking country in terms of Progress Gap
 
@@ -269,15 +296,40 @@ map <- ggplot(world_data) +
   ) +
   theme_void()
 ```
+```{r}
+library(readxl)
+SPI <- read_excel("Social_Progress_Index.xlsx")
+SPI_data <- left_join(filtered_df, SPI, by = c("code" = "Code"))
+SPI_data$access <- SPI_data$`Access to Advanced Education`
+
+SPI_data$Opportunity_norm <- (SPI_data$Opportunity - min(SPI_data$Opportunity, na.rm = TRUE)) /(max(SPI_data$Opportunity, na.rm = TRUE) - min(SPI_data$Opportunity, na.rm = TRUE))
+
+SPI_data$access_norm <- (SPI_data$access - min(SPI_data$access, na.rm = TRUE)) /          (max(SPI_data$access, na.rm = TRUE) - min(SPI_data$access, na.rm = TRUE))
+
+
+SPI_1 <- analyze_gap(SPI_data, "Opportunity_norm", "Opportunity", "index", "Progress Gap") + ggtitle("A. Opportunity")
+
+SPI_2 <- analyze_gap(SPI_data, "access_norm", "Access to Advanced Education", "index", "Progress Gap") + ggtitle("B. Access to Advanced Education")
+
+external <- grid.arrange(SPI_1, SPI_2, ncol = 1)
+
+
+
+
+```
+
+
 
 # Export
 
 ```{r}
-ggsave(file="figs/abs_pro.pdf", plot=abs_pro, width=12, height=7)
-ggsave(file="figs/abs_rel.pdf", plot=abs_rel, width=12, height=7)
-ggsave(file="figs/rel_pro.pdf", plot=rel_pro, width=12, height=7)
+
+ggsave(file="figs/internal.pdf", plot=internal, width=12, height=10)
+ggsave(file="figs/external.pdf", plot=external, width=12, height=10)
 
 ggsave(file="figs/VNM_USA.pdf", plot=VNM_USA, width=8, height=8)
+
+ggsave(file="figs/main.pdf", plot=main, width=8, height=12)
 
 ggsave(file="figs/compare1.pdf", plot=compare1, width=8, height=4)
 ggsave(file="figs/compare2.pdf", plot=compare2, width=8, height=4)

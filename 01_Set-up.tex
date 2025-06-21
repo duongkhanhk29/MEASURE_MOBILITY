@@ -1,4 +1,4 @@
-\documentclass[3p,authoryear,11pt, times]{elsarticle}
+\documentclass[3p,authoryear,nonatbib,11pt, times]{elsarticle}
 
 \makeatletter
 \def\ps@pprintTitle{%
@@ -7,6 +7,12 @@
  \let\@oddfoot\@empty
  \let\@evenfoot\@empty}
 \makeatother
+
+\usepackage[style=apa,natbib=true,doi=true,eprint=false,isbn=false,url=false,backend=biber]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{03_ref.bib}
+
+\usepackage{appendix}
 
 \usepackage{float}
 \usepackage{amsmath}
@@ -29,6 +35,14 @@
 \usepackage{amsthm}
 \theoremstyle{definition}
 \newtheorem{assumption}{Assumption}
+
+\usepackage{etoolbox}
+\makeatletter
+\pretocmd{\appendices}{
+	\let\addcontentsline\@gobblethree
+	\renewcommand{\thesection}{Appendix \arabic{section}}
+}{}{}
+\makeatother
 
 
 \begin{document}
@@ -61,7 +75,7 @@ country={Belgium}}
 
     \begin{abstract}
 
-    \noindent  Although social mobility is often associated with equality of opportunity, its precise meaning remains ambiguous. Consequently, the measurement of social mobility is problematic as well. This paper examines two key challenges in measuring social mobility: the directionality problem and the difficulty problem. The directionality problem arises when social fluidity -- defined as the independence of socioeconomic outcomes from parental status -- does not necessarily reflect true progress, particularly in cases of downward mobility. The difficulty problem occurs when the effort required for mobility is not properly accounted for, as it varies significantly across different social contexts. Relative mobility is often affected by the directionality problem, while absolute mobility is subject to the difficulty problem. Local measures focusing on disadvantaged groups may offer valuable insights but fail to capture the complete national picture. They are also less effective in developed countries, where most of the population is already well-educated, making global comparisons more challenging. To address these problems, this paper introduces a new index called the "Progress Gap," which quantifies the gap -- interpreted as the national effort -- between the actual transition matrix and a predefined target tailored to each country's context. By design, this index is independent of country-specific factors, enabling more consistent comparisons. It offers a more rigorous and meaningful assessment of social mobility in education on a global scale, contributing to a deeper understanding of inclusive growth.
+    \noindent  \input{abstract}
     
     \end{abstract}
 
@@ -72,6 +86,6 @@ country={Belgium}}
 
 \end{frontmatter}
 
-\input{02_main_text}
+\input{02_revised}
 
 \end{document}
